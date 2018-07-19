@@ -7,45 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B851C6741C0AF698007A22DA /* NSCalendar+RSDFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C6631C0AF698007A22DA /* NSCalendar+RSDFAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C6751C0AF698007A22DA /* NSCalendar+RSDFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B851C6641C0AF698007A22DA /* NSCalendar+RSDFAdditions.m */; };
-		B851C6761C0AF698007A22DA /* RSDayFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C6651C0AF698007A22DA /* RSDayFlow.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C6771C0AF698007A22DA /* RSDFDatePickerCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C6661C0AF698007A22DA /* RSDFDatePickerCollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C6781C0AF698007A22DA /* RSDFDatePickerCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B851C6671C0AF698007A22DA /* RSDFDatePickerCollectionView.m */; };
-		B851C6791C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C6681C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C67A1C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B851C6691C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.m */; };
-		B851C67B1C0AF698007A22DA /* RSDFDatePickerDate.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C66A1C0AF698007A22DA /* RSDFDatePickerDate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C67C1C0AF698007A22DA /* RSDFDatePickerDayCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C66B1C0AF698007A22DA /* RSDFDatePickerDayCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C67D1C0AF698007A22DA /* RSDFDatePickerDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B851C66C1C0AF698007A22DA /* RSDFDatePickerDayCell.m */; };
-		B851C67E1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C66D1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C67F1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = B851C66E1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.m */; };
-		B851C6801C0AF698007A22DA /* RSDFDatePickerMonthHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C66F1C0AF698007A22DA /* RSDFDatePickerMonthHeader.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C6811C0AF698007A22DA /* RSDFDatePickerMonthHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B851C6701C0AF698007A22DA /* RSDFDatePickerMonthHeader.m */; };
-		B851C6821C0AF698007A22DA /* RSDFDatePickerView+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C6711C0AF698007A22DA /* RSDFDatePickerView+Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C6831C0AF698007A22DA /* RSDFDatePickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = B851C6721C0AF698007A22DA /* RSDFDatePickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B851C6841C0AF698007A22DA /* RSDFDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B851C6731C0AF698007A22DA /* RSDFDatePickerView.m */; };
+		A13103A521009EC90054CFB6 /* RSDFDatePickerDaysOfWeekView.h in Headers */ = {isa = PBXBuildFile; fileRef = A131039321009EC80054CFB6 /* RSDFDatePickerDaysOfWeekView.h */; };
+		A13103A621009EC90054CFB6 /* RSDFDatePickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = A131039421009EC80054CFB6 /* RSDFDatePickerView.h */; };
+		A13103A721009EC90054CFB6 /* RSDFDatePickerMonthHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A131039521009EC80054CFB6 /* RSDFDatePickerMonthHeader.m */; };
+		A13103A821009EC90054CFB6 /* RSDFDatePickerDayCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A131039621009EC80054CFB6 /* RSDFDatePickerDayCell.h */; };
+		A13103A921009EC90054CFB6 /* RSDFDatePickerDate.h in Headers */ = {isa = PBXBuildFile; fileRef = A131039721009EC80054CFB6 /* RSDFDatePickerDate.h */; };
+		A13103AA21009EC90054CFB6 /* RSDFDatePickerCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A131039921009EC80054CFB6 /* RSDFDatePickerCollectionViewLayout.m */; };
+		A13103AB21009EC90054CFB6 /* NSCalendar+RSDFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A131039A21009EC90054CFB6 /* NSCalendar+RSDFAdditions.m */; };
+		A13103AC21009EC90054CFB6 /* RSDFDatePickerCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A131039B21009EC90054CFB6 /* RSDFDatePickerCollectionView.m */; };
+		A13103AD21009EC90054CFB6 /* RSDFDatePickerMonthHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = A131039C21009EC90054CFB6 /* RSDFDatePickerMonthHeader.h */; };
+		A13103AE21009EC90054CFB6 /* RSDFDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A131039D21009EC90054CFB6 /* RSDFDatePickerView.m */; };
+		A13103AF21009EC90054CFB6 /* RSDFDatePickerDaysOfWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = A131039E21009EC90054CFB6 /* RSDFDatePickerDaysOfWeekView.m */; };
+		A13103B021009EC90054CFB6 /* RSDayFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = A131039F21009EC90054CFB6 /* RSDayFlow.h */; };
+		A13103B121009EC90054CFB6 /* RSDFDatePickerDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A13103A021009EC90054CFB6 /* RSDFDatePickerDayCell.m */; };
+		A13103B221009EC90054CFB6 /* NSCalendar+RSDFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = A13103A121009EC90054CFB6 /* NSCalendar+RSDFAdditions.h */; };
+		A13103B321009EC90054CFB6 /* RSDFDatePickerCollectionViewLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = A13103A221009EC90054CFB6 /* RSDFDatePickerCollectionViewLayout.h */; };
+		A13103B421009EC90054CFB6 /* RSDFDatePickerView+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = A13103A321009EC90054CFB6 /* RSDFDatePickerView+Protected.h */; };
+		A13103B521009EC90054CFB6 /* RSDFDatePickerCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = A13103A421009EC90054CFB6 /* RSDFDatePickerCollectionView.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A131039321009EC80054CFB6 /* RSDFDatePickerDaysOfWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerDaysOfWeekView.h; sourceTree = "<group>"; };
+		A131039421009EC80054CFB6 /* RSDFDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerView.h; sourceTree = "<group>"; };
+		A131039521009EC80054CFB6 /* RSDFDatePickerMonthHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerMonthHeader.m; sourceTree = "<group>"; };
+		A131039621009EC80054CFB6 /* RSDFDatePickerDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerDayCell.h; sourceTree = "<group>"; };
+		A131039721009EC80054CFB6 /* RSDFDatePickerDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerDate.h; sourceTree = "<group>"; };
+		A131039821009EC80054CFB6 /* RSDayFlow.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = RSDayFlow.modulemap; sourceTree = "<group>"; };
+		A131039921009EC80054CFB6 /* RSDFDatePickerCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerCollectionViewLayout.m; sourceTree = "<group>"; };
+		A131039A21009EC90054CFB6 /* NSCalendar+RSDFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+RSDFAdditions.m"; sourceTree = "<group>"; };
+		A131039B21009EC90054CFB6 /* RSDFDatePickerCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerCollectionView.m; sourceTree = "<group>"; };
+		A131039C21009EC90054CFB6 /* RSDFDatePickerMonthHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerMonthHeader.h; sourceTree = "<group>"; };
+		A131039D21009EC90054CFB6 /* RSDFDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerView.m; sourceTree = "<group>"; };
+		A131039E21009EC90054CFB6 /* RSDFDatePickerDaysOfWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerDaysOfWeekView.m; sourceTree = "<group>"; };
+		A131039F21009EC90054CFB6 /* RSDayFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDayFlow.h; sourceTree = "<group>"; };
+		A13103A021009EC90054CFB6 /* RSDFDatePickerDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerDayCell.m; sourceTree = "<group>"; };
+		A13103A121009EC90054CFB6 /* NSCalendar+RSDFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+RSDFAdditions.h"; sourceTree = "<group>"; };
+		A13103A221009EC90054CFB6 /* RSDFDatePickerCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerCollectionViewLayout.h; sourceTree = "<group>"; };
+		A13103A321009EC90054CFB6 /* RSDFDatePickerView+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RSDFDatePickerView+Protected.h"; sourceTree = "<group>"; };
+		A13103A421009EC90054CFB6 /* RSDFDatePickerCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerCollectionView.h; sourceTree = "<group>"; };
 		A5BE393D1B32B49D00ECDF88 /* RSDayFlow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RSDayFlow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B851C6631C0AF698007A22DA /* NSCalendar+RSDFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendar+RSDFAdditions.h"; sourceTree = "<group>"; };
-		B851C6641C0AF698007A22DA /* NSCalendar+RSDFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendar+RSDFAdditions.m"; sourceTree = "<group>"; };
-		B851C6651C0AF698007A22DA /* RSDayFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDayFlow.h; sourceTree = "<group>"; };
-		B851C6661C0AF698007A22DA /* RSDFDatePickerCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerCollectionView.h; sourceTree = "<group>"; };
-		B851C6671C0AF698007A22DA /* RSDFDatePickerCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerCollectionView.m; sourceTree = "<group>"; };
-		B851C6681C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerCollectionViewLayout.h; sourceTree = "<group>"; };
-		B851C6691C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerCollectionViewLayout.m; sourceTree = "<group>"; };
-		B851C66A1C0AF698007A22DA /* RSDFDatePickerDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerDate.h; sourceTree = "<group>"; };
-		B851C66B1C0AF698007A22DA /* RSDFDatePickerDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerDayCell.h; sourceTree = "<group>"; };
-		B851C66C1C0AF698007A22DA /* RSDFDatePickerDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerDayCell.m; sourceTree = "<group>"; };
-		B851C66D1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerDaysOfWeekView.h; sourceTree = "<group>"; };
-		B851C66E1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerDaysOfWeekView.m; sourceTree = "<group>"; };
-		B851C66F1C0AF698007A22DA /* RSDFDatePickerMonthHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerMonthHeader.h; sourceTree = "<group>"; };
-		B851C6701C0AF698007A22DA /* RSDFDatePickerMonthHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerMonthHeader.m; sourceTree = "<group>"; };
-		B851C6711C0AF698007A22DA /* RSDFDatePickerView+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RSDFDatePickerView+Protected.h"; sourceTree = "<group>"; };
-		B851C6721C0AF698007A22DA /* RSDFDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDFDatePickerView.h; sourceTree = "<group>"; };
-		B851C6731C0AF698007A22DA /* RSDFDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDFDatePickerView.m; sourceTree = "<group>"; };
-		B85EF7ED1B88DB2000222FF7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Framework/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +59,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A131039221009EC80054CFB6 /* RSDayFlow */ = {
+			isa = PBXGroup;
+			children = (
+				A131039321009EC80054CFB6 /* RSDFDatePickerDaysOfWeekView.h */,
+				A131039421009EC80054CFB6 /* RSDFDatePickerView.h */,
+				A131039521009EC80054CFB6 /* RSDFDatePickerMonthHeader.m */,
+				A131039621009EC80054CFB6 /* RSDFDatePickerDayCell.h */,
+				A131039721009EC80054CFB6 /* RSDFDatePickerDate.h */,
+				A131039821009EC80054CFB6 /* RSDayFlow.modulemap */,
+				A131039921009EC80054CFB6 /* RSDFDatePickerCollectionViewLayout.m */,
+				A131039A21009EC90054CFB6 /* NSCalendar+RSDFAdditions.m */,
+				A131039B21009EC90054CFB6 /* RSDFDatePickerCollectionView.m */,
+				A131039C21009EC90054CFB6 /* RSDFDatePickerMonthHeader.h */,
+				A131039D21009EC90054CFB6 /* RSDFDatePickerView.m */,
+				A131039E21009EC90054CFB6 /* RSDFDatePickerDaysOfWeekView.m */,
+				A131039F21009EC90054CFB6 /* RSDayFlow.h */,
+				A13103A021009EC90054CFB6 /* RSDFDatePickerDayCell.m */,
+				A13103A121009EC90054CFB6 /* NSCalendar+RSDFAdditions.h */,
+				A13103A221009EC90054CFB6 /* RSDFDatePickerCollectionViewLayout.h */,
+				A13103A321009EC90054CFB6 /* RSDFDatePickerView+Protected.h */,
+				A13103A421009EC90054CFB6 /* RSDFDatePickerCollectionView.h */,
+			);
+			path = RSDayFlow;
+			sourceTree = "<group>";
+		};
 		A5BE39331B32B49D00ECDF88 = {
 			isa = PBXGroup;
 			children = (
-				B851C6621C0AF698007A22DA /* RSDayFlow */,
+				A131039221009EC80054CFB6 /* RSDayFlow */,
 				A5BE393E1B32B49D00ECDF88 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -75,40 +100,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A5BE39CA1B32BAFA00ECDF88 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B85EF7ED1B88DB2000222FF7 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			path = ..;
-			sourceTree = "<group>";
-		};
-		B851C6621C0AF698007A22DA /* RSDayFlow */ = {
-			isa = PBXGroup;
-			children = (
-				B851C6631C0AF698007A22DA /* NSCalendar+RSDFAdditions.h */,
-				B851C6641C0AF698007A22DA /* NSCalendar+RSDFAdditions.m */,
-				B851C6651C0AF698007A22DA /* RSDayFlow.h */,
-				B851C6661C0AF698007A22DA /* RSDFDatePickerCollectionView.h */,
-				B851C6671C0AF698007A22DA /* RSDFDatePickerCollectionView.m */,
-				B851C6681C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.h */,
-				B851C6691C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.m */,
-				B851C66A1C0AF698007A22DA /* RSDFDatePickerDate.h */,
-				B851C66B1C0AF698007A22DA /* RSDFDatePickerDayCell.h */,
-				B851C66C1C0AF698007A22DA /* RSDFDatePickerDayCell.m */,
-				B851C66D1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.h */,
-				B851C66E1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.m */,
-				B851C66F1C0AF698007A22DA /* RSDFDatePickerMonthHeader.h */,
-				B851C6701C0AF698007A22DA /* RSDFDatePickerMonthHeader.m */,
-				B851C6711C0AF698007A22DA /* RSDFDatePickerView+Protected.h */,
-				B851C6721C0AF698007A22DA /* RSDFDatePickerView.h */,
-				B851C6731C0AF698007A22DA /* RSDFDatePickerView.m */,
-				A5BE39CA1B32BAFA00ECDF88 /* Supporting Files */,
-			);
-			path = RSDayFlow;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -116,16 +107,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B851C6821C0AF698007A22DA /* RSDFDatePickerView+Protected.h in Headers */,
-				B851C67B1C0AF698007A22DA /* RSDFDatePickerDate.h in Headers */,
-				B851C6831C0AF698007A22DA /* RSDFDatePickerView.h in Headers */,
-				B851C6791C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.h in Headers */,
-				B851C6771C0AF698007A22DA /* RSDFDatePickerCollectionView.h in Headers */,
-				B851C67C1C0AF698007A22DA /* RSDFDatePickerDayCell.h in Headers */,
-				B851C6801C0AF698007A22DA /* RSDFDatePickerMonthHeader.h in Headers */,
-				B851C67E1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.h in Headers */,
-				B851C6761C0AF698007A22DA /* RSDayFlow.h in Headers */,
-				B851C6741C0AF698007A22DA /* NSCalendar+RSDFAdditions.h in Headers */,
+				A13103B021009EC90054CFB6 /* RSDayFlow.h in Headers */,
+				A13103B221009EC90054CFB6 /* NSCalendar+RSDFAdditions.h in Headers */,
+				A13103B321009EC90054CFB6 /* RSDFDatePickerCollectionViewLayout.h in Headers */,
+				A13103B421009EC90054CFB6 /* RSDFDatePickerView+Protected.h in Headers */,
+				A13103B521009EC90054CFB6 /* RSDFDatePickerCollectionView.h in Headers */,
+				A13103AD21009EC90054CFB6 /* RSDFDatePickerMonthHeader.h in Headers */,
+				A13103A621009EC90054CFB6 /* RSDFDatePickerView.h in Headers */,
+				A13103A821009EC90054CFB6 /* RSDFDatePickerDayCell.h in Headers */,
+				A13103A521009EC90054CFB6 /* RSDFDatePickerDaysOfWeekView.h in Headers */,
+				A13103A921009EC90054CFB6 /* RSDFDatePickerDate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,13 +186,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B851C6841C0AF698007A22DA /* RSDFDatePickerView.m in Sources */,
-				B851C6751C0AF698007A22DA /* NSCalendar+RSDFAdditions.m in Sources */,
-				B851C67F1C0AF698007A22DA /* RSDFDatePickerDaysOfWeekView.m in Sources */,
-				B851C67A1C0AF698007A22DA /* RSDFDatePickerCollectionViewLayout.m in Sources */,
-				B851C6811C0AF698007A22DA /* RSDFDatePickerMonthHeader.m in Sources */,
-				B851C67D1C0AF698007A22DA /* RSDFDatePickerDayCell.m in Sources */,
-				B851C6781C0AF698007A22DA /* RSDFDatePickerCollectionView.m in Sources */,
+				A13103AE21009EC90054CFB6 /* RSDFDatePickerView.m in Sources */,
+				A13103AB21009EC90054CFB6 /* NSCalendar+RSDFAdditions.m in Sources */,
+				A13103A721009EC90054CFB6 /* RSDFDatePickerMonthHeader.m in Sources */,
+				A13103AA21009EC90054CFB6 /* RSDFDatePickerCollectionViewLayout.m in Sources */,
+				A13103AC21009EC90054CFB6 /* RSDFDatePickerCollectionView.m in Sources */,
+				A13103AF21009EC90054CFB6 /* RSDFDatePickerDaysOfWeekView.m in Sources */,
+				A13103B121009EC90054CFB6 /* RSDFDatePickerDayCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

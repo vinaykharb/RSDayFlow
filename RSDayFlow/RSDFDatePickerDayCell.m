@@ -38,6 +38,11 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @property (nonatomic, readonly, strong) UIImageView *overlayImageView;
 @property (nonatomic, readonly, strong) UIImageView *markImageView;
 @property (nonatomic, readonly, strong) UIImageView *dividerImageView;
+@property (nonatomic, readonly, strong) UIImageView *todayImageView;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewLeftRadius;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewRightRadius;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewNoRadius;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircular;
 
 @end
 
@@ -50,6 +55,11 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @synthesize markImageColor = _markImageColor;
 @synthesize markImageView = _markImageView;
 @synthesize dividerImageView = _dividerImageView;
+@synthesize todayImageView = _todayImageView;
+@synthesize backgroundSelectedViewLeftRadius = _backgroundSelectedViewLeftRadius;
+@synthesize backgroundSelectedViewRightRadius = _backgroundSelectedViewRightRadius;
+@synthesize backgroundSelectedViewNoRadius = _backgroundSelectedViewNoRadius;
+@synthesize backgroundSelectedViewCircular = _backgroundSelectedViewCircular;
 
 #pragma mark - Lifecycle
 
@@ -74,13 +84,18 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (void)commonInitializer
 {
     self.backgroundColor = [self selfBackgroundColor];
-    
+
     [self addSubview:self.selectedDayImageView];
     [self addSubview:self.overlayImageView];
     [self addSubview:self.markImageView];
     [self addSubview:self.dividerImageView];
+	[self addSubview:self.todayImageView];
+	[self addSubview:self.backgroundSelectedViewLeftRadius];
+	[self addSubview:self.backgroundSelectedViewRightRadius];
+	[self addSubview:self.backgroundSelectedViewNoRadius];
+	[self addSubview:self.backgroundSelectedViewCircular];
     [self addSubview:self.dateLabel];
-    
+
     [self updateSubviews];
 }
 
@@ -91,9 +106,16 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
     self.dateLabel.frame = [self selectedImageViewFrame];
     self.selectedDayImageView.frame = [self selectedImageViewFrame];
     self.overlayImageView.frame = [self selectedImageViewFrame];
+	self.todayImageView.frame = [self selectedImageViewFrame];
     self.markImageView.frame = [self markImageViewFrame];
     self.dividerImageView.frame = [self dividerImageViewFrame];
     self.dividerImageView.image = [self dividerImage];
+
+	CGRect smallerHeightFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+	self.backgroundSelectedViewLeftRadius.frame = smallerHeightFrame;
+	self.backgroundSelectedViewRightRadius.frame = smallerHeightFrame;
+	self.backgroundSelectedViewNoRadius.frame = smallerHeightFrame;
+	self.backgroundSelectedViewCircular.frame = [self selectedImageViewFrame];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -111,6 +133,69 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
         _dateLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _dateLabel;
+}
+
+- (UIView *)backgroundSelectedViewLeftRadius
+{
+	if (!_backgroundSelectedViewLeftRadius) {
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		_backgroundSelectedViewLeftRadius = [[UIView alloc] initWithFrame:frame];
+		_backgroundSelectedViewLeftRadius.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		CGFloat radius = _backgroundSelectedViewLeftRadius.frame.size.height/2;
+		[self roundCornersOnView:_backgroundSelectedViewLeftRadius onTopLeft:true topRight:false bottomLeft:true bottomRight:false radius:radius];
+	}
+	return _backgroundSelectedViewLeftRadius;
+}
+
+- (UIView *)backgroundSelectedViewRightRadius
+{
+	if (!_backgroundSelectedViewRightRadius) {
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		_backgroundSelectedViewRightRadius = [[UIView alloc] initWithFrame:frame];
+		_backgroundSelectedViewRightRadius.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		CGFloat radius = _backgroundSelectedViewRightRadius.frame.size.height/2;
+		[self roundCornersOnView:_backgroundSelectedViewRightRadius onTopLeft:false topRight:true bottomLeft:false bottomRight:true radius:radius];
+	}
+	return _backgroundSelectedViewRightRadius;
+}
+
+- (UIView *)backgroundSelectedViewNoRadius
+{
+	if (!_backgroundSelectedViewNoRadius) {
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		_backgroundSelectedViewNoRadius = [[UIView alloc] initWithFrame:frame];
+		_backgroundSelectedViewNoRadius.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		_backgroundSelectedViewCircular.layer.cornerRadius = 0;
+	}
+	return _backgroundSelectedViewNoRadius;
+}
+
+- (UIView *)backgroundSelectedViewCircular
+{
+	if (!_backgroundSelectedViewCircular) {
+		_backgroundSelectedViewCircular = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
+		_backgroundSelectedViewCircular.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		CGFloat radius = _backgroundSelectedViewCircular.frame.size.height/2;
+		_backgroundSelectedViewCircular.layer.cornerRadius = radius;
+	}
+	return _backgroundSelectedViewCircular;
+}
+
+- (void)roundCornersOnView:(UIView *)view onTopLeft:(BOOL)tl topRight:(BOOL)tr bottomLeft:(BOOL)bl bottomRight:(BOOL)br radius:(float)radius {
+
+	if (tl || tr || bl || br) {
+		UIRectCorner corner = 0;
+		if (tl) {corner = corner | UIRectCornerTopLeft;}
+		if (tr) {corner = corner | UIRectCornerTopRight;}
+		if (bl) {corner = corner | UIRectCornerBottomLeft;}
+		if (br) {corner = corner | UIRectCornerBottomRight;}
+
+		UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
+		CAShapeLayer *maskLayer = [CAShapeLayer layer];
+		maskLayer.frame = view.bounds;
+		maskLayer.path = maskPath.CGPath;
+		view.layer.mask = maskLayer;
+	}
 }
 
 - (UIImageView *)dividerImageView
@@ -145,7 +230,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIColor *)markImageColor
 {
     if (!_markImageColor) {
-        _markImageColor = [UIColor colorWithRed:184/255.0f green:184/255.0f blue:184/255.0f alpha:1.0f];
+        _markImageColor = [UIColor colorWithRed:255/255.0f green:0/255.0f blue:0/255.0f alpha:1.0f];
     }
     return _markImageColor;
 }
@@ -155,7 +240,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
     if (!_markImageView) {
         _markImageView = [[UIImageView alloc] initWithFrame:[self markImageViewFrame]];
         _markImageView.backgroundColor = [UIColor clearColor];
-        _markImageView.contentMode = UIViewContentModeCenter;
+        _markImageView.contentMode = UIViewContentModeScaleAspectFit;
         _markImageView.image = self.markImage;
     }
     return _markImageView;
@@ -168,7 +253,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
         _overlayImageView.backgroundColor = [UIColor clearColor];
         _overlayImageView.opaque = NO;
         _overlayImageView.alpha = 0.5f;
-        _overlayImageView.contentMode = UIViewContentModeCenter;
+        _overlayImageView.contentMode = UIViewContentModeScaleAspectFit;
         _overlayImageView.image = [self overlayImage];
     }
     return _overlayImageView;
@@ -179,8 +264,9 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
     if (!_selectedDayImageView) {
         _selectedDayImageView = [[UIImageView alloc] initWithFrame:[self selectedImageViewFrame]];
         _selectedDayImageView.backgroundColor = [UIColor clearColor];
-        _selectedDayImageView.contentMode = UIViewContentModeCenter;
+        _selectedDayImageView.contentMode = UIViewContentModeScaleAspectFill;
         _selectedDayImageView.image = [self selectedDayImage];
+		_selectedDayImageView.clipsToBounds = YES;
     }
     return _selectedDayImageView;
 }
@@ -188,6 +274,17 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (CGRect)selectedImageViewFrame
 {
     return CGRectMake(roundOnBase(CGRectGetWidth(self.frame) / 2 - 17.5f, [UIScreen mainScreen].scale), roundOnBase(5.5, [UIScreen mainScreen].scale), 35.0f, 35.0f);
+}
+
+- (UIImageView *)todayImageView
+{
+	if (!_todayImageView) {
+		_todayImageView = [[UIImageView alloc] initWithFrame:[self selectedImageViewFrame]];
+		_todayImageView.backgroundColor = [UIColor clearColor];
+		_todayImageView.contentMode = UIViewContentModeScaleAspectFit;
+		_todayImageView.image = [self customTodayImage];
+	}
+	return _todayImageView;
 }
 
 - (void)setMarkImage:(UIImage *)markImage
@@ -213,60 +310,77 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 
 - (void)updateSubviews
 {
-    self.selectedDayImageView.hidden = !self.isSelected || self.isNotThisMonth || self.isOutOfRange;
+    self.selectedDayImageView.hidden = !self.isSelected || self.isNotThisMonth || self.isOutOfRange || self.isBackgroundSelectionViewVisible;
     self.overlayImageView.hidden = !self.isHighlighted || self.isNotThisMonth || self.isOutOfRange;
     self.markImageView.hidden = !self.isMarked || self.isNotThisMonth || self.isOutOfRange;
     self.dividerImageView.hidden = self.isNotThisMonth;
+	self.todayImageView.hidden = !self.isToday;
 
-    if (self.isNotThisMonth) {
-        self.dateLabel.textColor = [self notThisMonthLabelTextColor];
-        self.dateLabel.font = [self dayLabelFont];
-    } else {
-        if (self.isOutOfRange) {
-            self.dateLabel.textColor = [self outOfRangeDayLabelTextColor];
-            self.dateLabel.font = [self outOfRangeDayLabelFont];
-        } else {
-            if (!self.isSelected) {
-                if (!self.isToday) {
-                    self.dateLabel.font = [self dayLabelFont];
-                    if (!self.dayOff) {
-                        if (self.isPastDate) {
-                            self.dateLabel.textColor = [self pastDayLabelTextColor];
-                        } else {
-                            self.dateLabel.textColor = [self dayLabelTextColor];
-                        }
-                    } else {
-                        if (self.isPastDate) {
-                            self.dateLabel.textColor = [self pastDayOffLabelTextColor];
-                        } else {
-                            self.dateLabel.textColor = [self dayOffLabelTextColor];
-                        }
-                    }
-                } else {
-                    self.dateLabel.font = [self todayLabelFont];
-                    self.dateLabel.textColor = [self todayLabelTextColor];
-                }
-                
-            } else {
-                if (!self.isToday) {
-                    self.dateLabel.font = [self selectedDayLabelFont];
-                    self.dateLabel.textColor = [self selectedDayLabelTextColor];
-                    self.selectedDayImageView.image = [self selectedDayImage];
-                } else {
-                    self.dateLabel.font = [self selectedTodayLabelFont];
-                    self.dateLabel.textColor = [self selectedTodayLabelTextColor];
-                    self.selectedDayImageView.image = [self selectedTodayImage];
-                }
-            }
-            
-            if (self.marked) {
-                self.markImageView.image = self.markImage;
-            } else {
-                self.markImageView.image = nil;
-            }
-        }
-    }
+	BOOL hideBackgroundSelectedView = !self.isSelected || self.isNotThisMonth || self.isOutOfRange || !self.isBackgroundSelectionViewVisible;
 
+	self.backgroundSelectedViewLeftRadius.hidden = self.selectionStyle != RSDFDaySelectionStyleLeftRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewRightRadius.hidden = self.selectionStyle != RSDFDaySelectionStyleRightRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewNoRadius.hidden = self.selectionStyle != RSDFDaySelectionStyleNoRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewCircular.hidden = self.selectionStyle != RSDFDaySelectionStyleCircular || hideBackgroundSelectedView;
+
+	self.todayImageView.image = [self customTodayImage];
+
+	switch (self.dayState) {
+		case RSDFDayStateNotThisMonthDay:
+			self.dateLabel.textColor = [self notThisMonthLabelTextColor];
+			self.dateLabel.font = [self dayLabelFont];
+			break;
+		case RSDFDayStateWeekDayLabel:
+			self.dateLabel.textColor = [self weekDayLabelTextColor];
+			self.dateLabel.font = [self weekDayLabelTextFont];
+			break;
+		case RSDFDayStateOutOfRange:
+			self.dateLabel.textColor = [self outOfRangeDayLabelTextColor];
+			self.dateLabel.font = [self outOfRangeDayLabelFont];
+			break;
+		case RSDFDayStateMonthDay:
+			if (!self.isSelected) {
+				if (!self.isToday) {
+					self.dateLabel.font = [self dayLabelFont];
+					if (!self.dayOff) {
+						if (self.isPastDate) {
+							self.dateLabel.textColor = [self pastDayLabelTextColor];
+						} else {
+							self.dateLabel.textColor = [self dayLabelTextColor];
+						}
+					} else {
+						if (self.isPastDate) {
+							self.dateLabel.textColor = [self pastDayOffLabelTextColor];
+						} else {
+							self.dateLabel.textColor = [self dayOffLabelTextColor];
+						}
+					}
+				} else {
+					self.dateLabel.font = [self todayLabelFont];
+					self.dateLabel.textColor = [self todayLabelTextColor];
+				}
+
+			} else {
+				if (!self.isToday) {
+					self.dateLabel.font = [self selectedDayLabelFont];
+					self.dateLabel.textColor = [self selectedDayLabelTextColor];
+					self.selectedDayImageView.image = [self selectedDayImage];
+				} else {
+					self.dateLabel.font = [self selectedTodayLabelFont];
+					self.dateLabel.textColor = [self selectedTodayLabelTextColor];
+					self.selectedDayImageView.image = [self selectedTodayImage];
+				}
+			}
+
+			if (self.marked) {
+				self.markImageView.image = self.markImage;
+			} else {
+				self.markImageView.image = nil;
+			}
+			break;
+		default:
+			break;
+	}
 }
 
 + (NSCache *)imageCache
@@ -358,6 +472,16 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIFont *)outOfRangeDayLabelFont
 {
     return [UIFont fontWithName:@"HelveticaNeue" size:18.0f];
+}
+
+- (UIColor *)weekDayLabelTextColor
+{
+	return [UIColor colorWithRed:184/255.0f green:184/255.0f blue:184/255.0f alpha:1.0f];
+}
+
+- (UIFont *)weekDayLabelTextFont
+{
+	return [UIFont fontWithName:@"HelveticaNeue" size:18.0f];
 }
 
 - (UIColor *)notThisMonthLabelTextColor
@@ -487,6 +611,11 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
         dividerImage = [self rectImageWithKey:dividerImageKey frame:self.dividerImageView.frame color:dividerImageColor];
     }
     return dividerImage;
+}
+
+- (UIImage *)customTodayImage
+{
+	return nil;
 }
 
 @end
