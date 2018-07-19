@@ -88,6 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, getter = isPagingEnabled) BOOL pagingEnabled;
 
+@property (nonatomic, readonly, strong) NSMutableArray *selectedDates;
+
 ///----------------------------
 /// @name Scrolling to the Date
 ///----------------------------

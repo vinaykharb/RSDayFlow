@@ -28,6 +28,28 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM (NSUInteger, RSDFDayState) {
+	/// Month Day: Normal Days of Month
+	RSDFDayStateMonthDay,
+	/// Not This Month Day: Edge Case Days like 30, 31 that appear in the next month also
+	RSDFDayStateNotThisMonthDay,
+	/// Week Day Label: S M T W T F S
+	RSDFDayStateWeekDayLabel,
+	/// Out of Range Day Label: Days which are out of startDate and endDate of calendar
+	RSDFDayStateOutOfRange,
+};
+
+typedef NS_ENUM (NSUInteger, RSDFDaySelectionStyle) {
+	/// Left Radius: Radius on the Left of Background
+	RSDFDaySelectionStyleLeftRadius,
+	/// Right Radius: Radius on the Right of Background
+	RSDFDaySelectionStyleRightRadius,
+	/// Circular: Circular Background
+	RSDFDaySelectionStyleCircular,
+	/// No Radius: Rectangular Background
+	RSDFDaySelectionStyleNoRadius,
+};
+
 /**
  The `RSDFDatePickerDayCell` is a cell which used to display a day in the date picker view.
  */
@@ -57,6 +79,21 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion Cells with these days do not display the today image, the overlay image, the marks and the divider image.
 */
 @property (nonatomic, getter = isNotThisMonth) BOOL notThisMonth;
+
+/**
+ An Enum value that determines whether the cell's day is month day, not a month day, a week day label or a date out of range.
+ */
+@property (nonatomic) RSDFDayState dayState;
+
+/**
+ An Enum value that determines how the cell background will look like.
+ */
+@property (nonatomic) RSDFDaySelectionStyle selectionStyle;
+
+/**
+ A Bool value that determines if the cell background should be visible
+ */
+@property (nonatomic, getter = isBackgroundSelectionViewVisible) BOOL showBackgroundSelectionView;
 
 /**
  A Boolean value that determines whether the cell's day is day off.
@@ -144,6 +181,20 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion Can be overridden in subclasses for customization.
  */
 - (UIFont *)outOfRangeDayLabelFont;
+
+/**
+ The text color for the label of the week day. Default value is [UIColor colorWithRed:184/255.0f green:184/255.0f blue:184/255.0f alpha:1.0f].
+
+ @discussion Can be overridden in subclasses for customization.
+ */
+- (UIColor *)weekDayLabelTextColor;
+
+/**
+ The font for the label of the week day. Default value is [UIFont fontWithName:@"HelveticaNeue" size:18.0f].
+
+ @discussion Can be overridden in subclasses for customization.
+ */
+- (UIFont *)weekDayLabelTextFont;
 
 /**
  The text color for the label of the day that's not this month. Default value is [UIColor clearColor].
@@ -263,6 +314,13 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion Can be overridden in subclasses for customization.
  */
 - (nullable UIImage *)customDividerImage;
+
+/**
+ The custom today image for the today cell. Default value is `nil`.
+
+ @discussion Can be overridden in subclasses for customization.
+ */
+- (nullable UIImage *)customTodayImage;
 
 /**
  Default selection bubble rectangle.
