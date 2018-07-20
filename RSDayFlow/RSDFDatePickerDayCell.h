@@ -48,6 +48,12 @@ typedef NS_ENUM (NSUInteger, RSDFDaySelectionStyle) {
 	RSDFDaySelectionStyleCircular,
 	/// No Radius: Rectangular Background
 	RSDFDaySelectionStyleNoRadius,
+	/// Circular: Circular Background Fused with Left Rectangular Appendage to restore continuity
+	RSDFDaySelectionStyleCircularFusedLeft,
+	/// Circular: Circular Background Fused with Right Rectangular Appendage to restore continuity
+	RSDFDaySelectionStyleCircularFusedRight,
+	/// Circular: Circular Background Fused with Right Rectangular Appendage to restore continuity on both sides
+	RSDFDaySelectionStyleCircularFused,
 };
 
 /**
