@@ -709,6 +709,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 - (RSDFDatePickerDayCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     RSDFDatePickerDayCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RSDFDatePickerViewDayCellIdentifier forIndexPath:indexPath];
+	cell.today = NO;
 
 	if (indexPath.item < 7) {
 		NSArray *daysOfWeek = @[@"S", @"M", @"T", @"W", @"T", @"F", @"S"];

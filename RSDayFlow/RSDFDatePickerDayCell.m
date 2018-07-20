@@ -379,7 +379,6 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		self.backgroundSelectedViewCircularFusedLeft.hidden = false;
 		self.backgroundSelectedViewCircularFusedRight.hidden = false;
 	}
-	self.todayImageView.image = [self customTodayImage];
 
 	switch (self.dayState) {
 		case RSDFDayStateNotThisMonthDay:
@@ -437,6 +436,8 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		default:
 			break;
 	}
+	self.todayImageView.image = self.isToday ? [self customTodayImage] : nil;
+
 }
 
 + (NSCache *)imageCache
