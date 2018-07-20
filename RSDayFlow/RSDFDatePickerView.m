@@ -797,7 +797,15 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 			}
 
 			if (self.currentPannedIndexPath == indexPath) {
-				cell.selectionStyle = RSDFDaySelectionStyleCircular;
+				if (isLeftSelected && isRightSelected) {
+					cell.selectionStyle = RSDFDaySelectionStyleCircularFused;
+				} else if (isLeftSelected) {
+					cell.selectionStyle = RSDFDaySelectionStyleCircularFusedLeft;
+				} else if (isRightSelected) {
+					cell.selectionStyle = RSDFDaySelectionStyleCircularFusedRight;
+				} else {
+					cell.selectionStyle = RSDFDaySelectionStyleCircular;
+				}
 			}
 
 			//Show Selected/Deselected cells
