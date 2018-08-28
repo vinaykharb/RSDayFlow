@@ -715,6 +715,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 {
 	RSDFDatePickerDayCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RSDFDatePickerViewDayCellIdentifier forIndexPath:indexPath];
 	cell.today = NO;
+	cell.selectedInFuture = NO;
 
 	if (indexPath.item < 7) {
 		NSArray *daysOfWeek = @[@"S", @"M", @"T", @"W", @"T", @"F", @"S"];
@@ -757,6 +758,10 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 				}
 			}
 
+			if ([self.dataSource respondsToSelector:@selector(datePickerView:shouldSelectDateInFuture:)]) {
+				cell.selectedInFuture = [self.dataSource datePickerView:self shouldSelectDateInFuture:cellDate];
+			}
+
 			NSComparisonResult result = [_today compare:cellDate];
 			switch (result) {
 				case NSOrderedSame: {
@@ -792,6 +797,11 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 			BOOL isLeftSelected = [self.selectedDates containsObject:dateMinusOneDay];
 			BOOL isRightSelected = [self.selectedDates containsObject:datePlusOneDay];
 
+			if (cell.isSelectedInFuture) {
+				isLeftSelected = [self.dataSource datePickerView:self shouldSelectDateInFuture:dateMinusOneDay];
+				isRightSelected = [self.dataSource datePickerView:self shouldSelectDateInFuture:datePlusOneDay];
+			}
+
 			if (isLeftSelected && isRightSelected) {
 				cell.selectionStyle = RSDFDaySelectionStyleNoRadius;
 			} else if (isLeftSelected) {
@@ -816,7 +826,9 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 
 			//Show Selected/Deselected cells
 			cell.selected = [self.selectedDates containsObject:cellDate];
-
+			if (cell.selectedInFuture) {
+				cell.selected = cell.selectedInFuture;
+			}
 		}
 	}
 	cell.dateLabel.isAccessibilityElement = NO;

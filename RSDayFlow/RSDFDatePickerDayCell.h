@@ -83,7 +83,7 @@ typedef NS_ENUM (NSUInteger, RSDFDaySelectionStyle) {
  A Boolean value that determines whether the cell's day that's not this month.
  
  @discussion Cells with these days do not display the today image, the overlay image, the marks and the divider image.
-*/
+ */
 @property (nonatomic, getter = isNotThisMonth) BOOL notThisMonth;
 
 /**
@@ -100,6 +100,11 @@ typedef NS_ENUM (NSUInteger, RSDFDaySelectionStyle) {
  A Bool value that determines if the cell background should be visible
  */
 @property (nonatomic, getter = isBackgroundSelectionViewVisible) BOOL showBackgroundSelectionView;
+
+/**
+ A Bool value that determines if the cell should be shown selected on a future date
+ */
+@property (nonatomic, getter = isSelectedInFuture) BOOL selectedInFuture;
 
 /**
  A Boolean value that determines whether the cell's day is day off.
@@ -190,14 +195,14 @@ typedef NS_ENUM (NSUInteger, RSDFDaySelectionStyle) {
 
 /**
  The text color for the label of the week day. Default value is [UIColor colorWithRed:184/255.0f green:184/255.0f blue:184/255.0f alpha:1.0f].
-
+ 
  @discussion Can be overridden in subclasses for customization.
  */
 - (UIColor *)weekDayLabelTextColor;
 
 /**
  The font for the label of the week day. Default value is [UIFont fontWithName:@"HelveticaNeue" size:18.0f].
-
+ 
  @discussion Can be overridden in subclasses for customization.
  */
 - (UIFont *)weekDayLabelTextFont;
@@ -323,7 +328,7 @@ typedef NS_ENUM (NSUInteger, RSDFDaySelectionStyle) {
 
 /**
  The custom today image for the today cell. Default value is `nil`.
-
+ 
  @discussion Can be overridden in subclasses for customization.
  */
 - (nullable UIImage *)customTodayImage;
