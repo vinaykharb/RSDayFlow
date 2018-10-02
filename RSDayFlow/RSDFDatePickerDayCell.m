@@ -23,6 +23,9 @@
 // THE SOFTWARE.
 //
 
+#define BackgroundColor [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0]
+#define BorderWidth 6.0f
+
 #import "RSDFDatePickerDayCell.h"
 
 CGFloat roundOnBase(CGFloat x, CGFloat base) {
@@ -45,6 +48,10 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircular;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircularFusedLeft;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircularFusedRight;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewLeftRadiusBordered;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewRightRadiusBordered;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewNoRadiusBordered;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircularBordered;
 
 @end
 
@@ -64,6 +71,10 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @synthesize backgroundSelectedViewCircular = _backgroundSelectedViewCircular;
 @synthesize backgroundSelectedViewCircularFusedLeft = _backgroundSelectedViewCircularFusedLeft;
 @synthesize backgroundSelectedViewCircularFusedRight = _backgroundSelectedViewCircularFusedRight;
+@synthesize backgroundSelectedViewLeftRadiusBordered = _backgroundSelectedViewLeftRadiusBordered;
+@synthesize backgroundSelectedViewRightRadiusBordered = _backgroundSelectedViewRightRadiusBordered;
+@synthesize backgroundSelectedViewNoRadiusBordered = _backgroundSelectedViewNoRadiusBordered;
+@synthesize backgroundSelectedViewCircularBordered = _backgroundSelectedViewCircularBordered;
 
 #pragma mark - Lifecycle
 
@@ -100,6 +111,10 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	[self addSubview:self.backgroundSelectedViewCircular];
 	[self addSubview:self.backgroundSelectedViewCircularFusedLeft];
 	[self addSubview:self.backgroundSelectedViewCircularFusedRight];
+	[self addSubview:self.backgroundSelectedViewLeftRadiusBordered];
+	[self addSubview:self.backgroundSelectedViewRightRadiusBordered];
+	[self addSubview:self.backgroundSelectedViewNoRadiusBordered];
+	[self addSubview:self.backgroundSelectedViewCircularBordered];
 	[self addSubview:self.dateLabel];
 
 	[self updateSubviews];
@@ -124,6 +139,11 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	self.backgroundSelectedViewCircular.frame = [self selectedImageViewFrame];
 	self.backgroundSelectedViewCircularFusedLeft.frame = [self selectedImageViewFrame];
 	self.backgroundSelectedViewCircularFusedRight.frame = [self selectedImageViewFrame];
+	self.backgroundSelectedViewLeftRadiusBordered.frame = smallerHeightFrame;
+	self.backgroundSelectedViewRightRadiusBordered.frame = smallerHeightFrame;
+	self.backgroundSelectedViewNoRadiusBordered.frame = smallerHeightFrame;
+	self.backgroundSelectedViewCircularBordered.frame = [self selectedImageViewFrame];
+
 }
 
 - (void)drawRect:(CGRect)rect
@@ -148,7 +168,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	if (!_backgroundSelectedViewLeftRadius) {
 		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
 		_backgroundSelectedViewLeftRadius = [[UIView alloc] initWithFrame:frame];
-		_backgroundSelectedViewLeftRadius.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		_backgroundSelectedViewLeftRadius.backgroundColor = BackgroundColor;
 		CGFloat radius = _backgroundSelectedViewLeftRadius.frame.size.height/2;
 		[self roundCornersOnView:_backgroundSelectedViewLeftRadius onTopLeft:true topRight:false bottomLeft:true bottomRight:false radius:radius];
 	}
@@ -160,7 +180,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	if (!_backgroundSelectedViewRightRadius) {
 		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
 		_backgroundSelectedViewRightRadius = [[UIView alloc] initWithFrame:frame];
-		_backgroundSelectedViewRightRadius.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		_backgroundSelectedViewRightRadius.backgroundColor = BackgroundColor;
 		CGFloat radius = _backgroundSelectedViewRightRadius.frame.size.height/2;
 		[self roundCornersOnView:_backgroundSelectedViewRightRadius onTopLeft:false topRight:true bottomLeft:false bottomRight:true radius:radius];
 	}
@@ -172,7 +192,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	if (!_backgroundSelectedViewNoRadius) {
 		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
 		_backgroundSelectedViewNoRadius = [[UIView alloc] initWithFrame:frame];
-		_backgroundSelectedViewNoRadius.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		_backgroundSelectedViewNoRadius.backgroundColor = BackgroundColor;
 	}
 	return _backgroundSelectedViewNoRadius;
 }
@@ -181,7 +201,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 {
 	if (!_backgroundSelectedViewCircular) {
 		_backgroundSelectedViewCircular = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
-		_backgroundSelectedViewCircular.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		_backgroundSelectedViewCircular.backgroundColor = BackgroundColor;
 		CGFloat radius = _backgroundSelectedViewCircular.frame.size.height/2;
 		_backgroundSelectedViewCircular.layer.cornerRadius = radius;
 	}
@@ -195,13 +215,13 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		_backgroundSelectedViewCircularFusedLeft.backgroundColor = [UIColor clearColor];
 
 		UIView* circularView = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
-		circularView.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		circularView.backgroundColor = BackgroundColor;
 		CGFloat radius = circularView.frame.size.height/2;
 		circularView.layer.cornerRadius = radius;
 
 		CGRect fusedViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
 		UIView* fusedView = [[UIView alloc] initWithFrame:fusedViewFrame];
-		fusedView.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		fusedView.backgroundColor = BackgroundColor;
 
 		[_backgroundSelectedViewCircularFusedLeft addSubview:fusedView];
 		[_backgroundSelectedViewCircularFusedLeft addSubview:circularView];
@@ -217,19 +237,68 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		_backgroundSelectedViewCircularFusedRight.backgroundColor = [UIColor clearColor];
 
 		UIView* circularView = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
-		circularView.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		circularView.backgroundColor = BackgroundColor;
 		CGFloat radius = circularView.frame.size.height/2;
 		circularView.layer.cornerRadius = radius;
 
 		CGRect fusedViewFrame = CGRectMake(CGRectGetMaxX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, -CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
 		UIView* fusedView = [[UIView alloc] initWithFrame:fusedViewFrame];
-		fusedView.backgroundColor = [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0];
+		fusedView.backgroundColor = BackgroundColor;
 
 		[_backgroundSelectedViewCircularFusedRight addSubview:fusedView];
 		[_backgroundSelectedViewCircularFusedRight addSubview:circularView];
 
 	}
 	return _backgroundSelectedViewCircularFusedRight;
+}
+
+- (UIView *)backgroundSelectedViewLeftRadiusBordered
+{
+	if (!_backgroundSelectedViewLeftRadiusBordered) {
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		_backgroundSelectedViewLeftRadiusBordered = [[UIView alloc] initWithFrame:frame];
+		_backgroundSelectedViewLeftRadiusBordered.backgroundColor = [UIColor clearColor];
+		CGFloat radius = _backgroundSelectedViewLeftRadiusBordered.frame.size.height/2;
+		[self bordersOnRoundCornersOnView:_backgroundSelectedViewLeftRadiusBordered onTopLeft:true topRight:false bottomLeft:true bottomRight:false radius:radius];
+	}
+	return _backgroundSelectedViewLeftRadiusBordered;
+}
+
+- (UIView *)backgroundSelectedViewRightRadiusBordered
+{
+	if (!_backgroundSelectedViewRightRadiusBordered) {
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		_backgroundSelectedViewRightRadiusBordered = [[UIView alloc] initWithFrame:frame];
+		_backgroundSelectedViewRightRadiusBordered.backgroundColor = [UIColor clearColor];
+		CGFloat radius = _backgroundSelectedViewRightRadiusBordered.frame.size.height/2;
+		[self bordersOnRoundCornersOnView:_backgroundSelectedViewRightRadiusBordered onTopLeft:false topRight:true bottomLeft:false bottomRight:true radius:radius];
+	}
+	return _backgroundSelectedViewRightRadiusBordered;
+}
+
+- (UIView *)backgroundSelectedViewNoRadiusBordered
+{
+	if (!_backgroundSelectedViewNoRadiusBordered) {
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		_backgroundSelectedViewNoRadiusBordered = [[UIView alloc] initWithFrame:frame];
+		_backgroundSelectedViewNoRadiusBordered.backgroundColor = [UIColor clearColor];
+		[self addTopBorderOnView:_backgroundSelectedViewNoRadiusBordered];
+		[self addBottomBorderOnView:_backgroundSelectedViewNoRadiusBordered];
+	}
+	return _backgroundSelectedViewNoRadiusBordered;
+}
+
+- (UIView *)backgroundSelectedViewCircularBordered
+{
+	if (!_backgroundSelectedViewCircularBordered) {
+		_backgroundSelectedViewCircularBordered = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
+		_backgroundSelectedViewCircularBordered.backgroundColor = [UIColor clearColor];
+		CGFloat radius = _backgroundSelectedViewCircularBordered.frame.size.height/2;
+		_backgroundSelectedViewCircularBordered.layer.cornerRadius = radius;
+		_backgroundSelectedViewCircularBordered.layer.borderColor = BackgroundColor.CGColor;
+		_backgroundSelectedViewCircularBordered.layer.borderWidth = BorderWidth/2;
+	}
+	return _backgroundSelectedViewCircularBordered;
 }
 
 - (void)roundCornersOnView:(UIView *)view onTopLeft:(BOOL)tl topRight:(BOOL)tr bottomLeft:(BOOL)bl bottomRight:(BOOL)br radius:(float)radius {
@@ -247,6 +316,76 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		maskLayer.path = maskPath.CGPath;
 		view.layer.mask = maskLayer;
 	}
+}
+
+- (void)bordersOnRoundCornersOnView:(UIView *)view onTopLeft:(BOOL)tl topRight:(BOOL)tr bottomLeft:(BOOL)bl bottomRight:(BOOL)br radius:(float)radius {
+
+	if (tl || tr || bl || br) {
+		UIRectCorner corner = 0;
+		if (tl) {corner = corner | UIRectCornerTopLeft;}
+		if (tr) {corner = corner | UIRectCornerTopRight;}
+		if (bl) {corner = corner | UIRectCornerBottomLeft;}
+		if (br) {corner = corner | UIRectCornerBottomRight;}
+
+		UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
+		CAShapeLayer *maskLayer = [CAShapeLayer layer];
+		maskLayer.frame = view.bounds;
+		maskLayer.path = maskPath.CGPath;
+		view.layer.mask = maskLayer;
+
+		CGRect bounds;
+		if (tl && tr) {
+			bounds = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, view.bounds.origin.x, view.bounds.size.height);
+		} else if (tl) {
+			bounds = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, view.bounds.origin.x + 100.0f, view.bounds.size.height);
+		} else {
+			bounds = CGRectMake(- 100.0f + view.bounds.origin.x, view.bounds.origin.y, view.bounds.size.width + 100.0f, view.bounds.size.height);
+		}
+
+		CAShapeLayer *borderLayer = [CAShapeLayer layer];
+		UIBezierPath *borderMaskPath = [UIBezierPath bezierPathWithRoundedRect:bounds byRoundingCorners:corner cornerRadii:CGSizeMake(radius, radius)];
+		borderLayer.path = borderMaskPath.CGPath;
+		borderLayer.strokeColor = BackgroundColor.CGColor;
+		borderLayer.fillColor = [UIColor clearColor].CGColor;
+		borderLayer.lineWidth = BorderWidth;
+		[view.layer addSublayer: borderLayer];
+	}
+}
+
+- (void)addTopBorderOnView:(UIView*) view
+{
+	UIView *border = [UIView new];
+	border.backgroundColor = BackgroundColor;
+	[border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
+	border.frame = CGRectMake(0, 0, self.frame.size.width, BorderWidth/2);
+	[view addSubview:border];
+}
+
+- (void)addBottomBorderOnView:(UIView*) view
+{
+	UIView *border = [UIView new];
+	border.backgroundColor = BackgroundColor;
+	[border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
+	border.frame = CGRectMake(0, self.frame.size.height - BorderWidth/2, self.frame.size.width, BorderWidth/2);
+	[view addSubview:border];
+}
+
+- (void)addLeftBorderOnView:(UIView*) view
+{
+	UIView *border = [UIView new];
+	border.backgroundColor = BackgroundColor;
+	border.frame = CGRectMake(0, 0, BorderWidth, self.frame.size.height);
+	[border setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin];
+	[view addSubview:border];
+}
+
+- (void)addRightBorderOnView:(UIView*) view
+{
+	UIView *border = [UIView new];
+	border.backgroundColor = BackgroundColor;
+	[border setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin];
+	border.frame = CGRectMake(self.frame.size.width - BorderWidth, 0, BorderWidth, self.frame.size.height);
+	[view addSubview:border];
 }
 
 - (UIImageView *)dividerImageView
@@ -383,13 +522,23 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		self.backgroundSelectedViewCircularFusedLeft.hidden = false;
 		self.backgroundSelectedViewCircularFusedRight.hidden = false;
 	}
-	CGFloat alpha = !self.isSelectedInFuture ? 1.0 : 0.36;
-	self.backgroundSelectedViewLeftRadius.alpha = alpha;
-	self.backgroundSelectedViewRightRadius.alpha = alpha;
-	self.backgroundSelectedViewNoRadius.alpha = alpha;
-	self.backgroundSelectedViewCircular.alpha = alpha;
-	self.backgroundSelectedViewCircularFusedLeft.alpha = alpha;
-	self.backgroundSelectedViewCircularFusedRight.alpha = alpha;
+	self.backgroundSelectedViewLeftRadiusBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleLeftRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewRightRadiusBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleRightRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewNoRadiusBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleNoRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewCircularBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleCircular || hideBackgroundSelectedView;
+
+	CGFloat alphaForBorderedViews = !self.isSelectedInFuture ? 0.0 : 0.53;
+	CGFloat alphaForFilledViews = !self.isSelectedInFuture ? 1.0 : 0.0;
+	self.backgroundSelectedViewLeftRadius.alpha = alphaForFilledViews;
+	self.backgroundSelectedViewRightRadius.alpha = alphaForFilledViews;
+	self.backgroundSelectedViewNoRadius.alpha = alphaForFilledViews;
+	self.backgroundSelectedViewCircular.alpha = alphaForFilledViews;
+	self.backgroundSelectedViewCircularFusedLeft.alpha = alphaForFilledViews;
+	self.backgroundSelectedViewCircularFusedRight.alpha = alphaForFilledViews;
+	self.backgroundSelectedViewLeftRadiusBordered.alpha = alphaForBorderedViews;
+	self.backgroundSelectedViewRightRadiusBordered.alpha = alphaForBorderedViews;
+	self.backgroundSelectedViewNoRadiusBordered.alpha = alphaForBorderedViews;
+	self.backgroundSelectedViewCircularBordered.alpha = alphaForBorderedViews;
 
 	switch (self.dayState) {
 		case RSDFDayStateNotThisMonthDay:
