@@ -334,9 +334,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		view.layer.mask = maskLayer;
 
 		CGRect bounds;
-		if (tl && tr) {
-			bounds = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, view.bounds.origin.x, view.bounds.size.height);
-		} else if (tl) {
+		if (tl) {
 			bounds = CGRectMake(view.bounds.origin.x, view.bounds.origin.y, view.bounds.origin.x + 100.0f, view.bounds.size.height);
 		} else {
 			bounds = CGRectMake(- 100.0f + view.bounds.origin.x, view.bounds.origin.y, view.bounds.size.width + 100.0f, view.bounds.size.height);
@@ -357,7 +355,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	UIView *border = [UIView new];
 	border.backgroundColor = BackgroundColor;
 	[border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
-	border.frame = CGRectMake(0, 0, self.frame.size.width, BorderWidth/2);
+	border.frame = CGRectMake(0, 0, view.frame.size.width, BorderWidth/2);
 	[view addSubview:border];
 }
 
@@ -366,7 +364,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	UIView *border = [UIView new];
 	border.backgroundColor = BackgroundColor;
 	[border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin];
-	border.frame = CGRectMake(0, self.frame.size.height - BorderWidth/2, self.frame.size.width, BorderWidth/2);
+	border.frame = CGRectMake(0, view.frame.size.height - BorderWidth/2, view.frame.size.width, BorderWidth/2);
 	[view addSubview:border];
 }
 
@@ -374,7 +372,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 {
 	UIView *border = [UIView new];
 	border.backgroundColor = BackgroundColor;
-	border.frame = CGRectMake(0, 0, BorderWidth, self.frame.size.height);
+	border.frame = CGRectMake(0, 0, BorderWidth, view.frame.size.height);
 	[border setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin];
 	[view addSubview:border];
 }
@@ -384,7 +382,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	UIView *border = [UIView new];
 	border.backgroundColor = BackgroundColor;
 	[border setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin];
-	border.frame = CGRectMake(self.frame.size.width - BorderWidth, 0, BorderWidth, self.frame.size.height);
+	border.frame = CGRectMake(view.frame.size.width - BorderWidth, 0, BorderWidth, view.frame.size.height);
 	[view addSubview:border];
 }
 
