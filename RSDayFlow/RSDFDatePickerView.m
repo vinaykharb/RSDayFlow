@@ -447,9 +447,9 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 		NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
 		if (indexPath != self.previousPannedIndexPath && indexPath && !isVerticalGesture) {
 			_currentPannedIndexPath = indexPath;
-			if ([self.delegate respondsToSelector:@selector(datePickerView:shouldSelectDate:)]) {
+			if ([self.delegate respondsToSelector:@selector(datePickerView:shouldSelectDate:atLocation:)]) {
 				NSDate *date = [self dateForCellAtIndexPath:indexPath];
-				if ([self.delegate datePickerView:self shouldSelectDate:date]) {
+				if ([self.delegate datePickerView:self shouldSelectDate:date atLocation: location]) {
 					[self selectDate:date];
 					[self.delegate datePickerView:self didSelectDate:date];
 				}
@@ -944,9 +944,10 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 		return NO;
 	}
 
-	if ([self.delegate respondsToSelector:@selector(datePickerView:shouldSelectDate:)]) {
+	if ([self.delegate respondsToSelector:@selector(datePickerView:shouldSelectDate:atLocation:)]) {
 		NSDate *date = [self dateForCellAtIndexPath:indexPath];
-		return [self.delegate datePickerView:self shouldSelectDate:date];
+		CGPoint location = [collectionView cellForItemAtIndexPath:indexPath].frame.origin;
+		return [self.delegate datePickerView:self shouldSelectDate:date atLocation: location];
 	}
 
 	return YES;
