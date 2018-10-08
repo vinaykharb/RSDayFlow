@@ -869,7 +869,10 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 				break;
 		}
 
-		monthHeader.dateLabel.text = [NSString stringWithFormat:@"%@ %tu", monthString, date.year];
+		NSString *monthHeaderString = [NSString stringWithFormat:@"%@ %tu", monthString, date.year];
+		NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString: monthHeaderString];
+		[attributedString addAttribute: NSKernAttributeName value: @(2.5) range: NSMakeRange(0, monthHeaderString.length)];
+		monthHeader.dateLabel.attributedText = attributedString;
 
 		RSDFDatePickerDate today = [self pickerDateFromDate:_today];
 		if ( (today.month == date.month) && (today.year == date.year) ) {
