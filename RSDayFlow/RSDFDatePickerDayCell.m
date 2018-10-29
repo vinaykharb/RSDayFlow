@@ -23,8 +23,8 @@
 // THE SOFTWARE.
 //
 
-#define BackgroundColor [UIColor colorWithRed:212/255.0f green:53/255.0f blue:75/255.0f alpha:1.0]
-#define BorderWidth 6.0f
+#define BackgroundColor [UIColor colorWithRed:233/255.0f green:63/255.0f blue:67/255.0f alpha:1.0]
+#define BorderWidth 3.0f
 
 #import "RSDFDatePickerDayCell.h"
 
@@ -136,13 +136,15 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	self.backgroundSelectedViewLeftRadius.frame = smallerHeightFrame;
 	self.backgroundSelectedViewRightRadius.frame = smallerHeightFrame;
 	self.backgroundSelectedViewNoRadius.frame = smallerHeightFrame;
-	self.backgroundSelectedViewCircular.frame = [self selectedImageViewFrame];
+	CGFloat diff = CGRectGetWidth([self selectedImageViewFrame]) - CGRectGetHeight([self selectedImageViewFrame]);
+	CGRect circularViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + diff/2, CGRectGetMinY([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]));
+	self.backgroundSelectedViewCircular.frame = circularViewFrame;
 	self.backgroundSelectedViewCircularFusedLeft.frame = [self selectedImageViewFrame];
 	self.backgroundSelectedViewCircularFusedRight.frame = [self selectedImageViewFrame];
 	self.backgroundSelectedViewLeftRadiusBordered.frame = smallerHeightFrame;
 	self.backgroundSelectedViewRightRadiusBordered.frame = smallerHeightFrame;
 	self.backgroundSelectedViewNoRadiusBordered.frame = smallerHeightFrame;
-	self.backgroundSelectedViewCircularBordered.frame = [self selectedImageViewFrame];
+	self.backgroundSelectedViewCircularBordered.frame = circularViewFrame;
 
 }
 
@@ -200,7 +202,9 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewCircular
 {
 	if (!_backgroundSelectedViewCircular) {
-		_backgroundSelectedViewCircular = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
+		CGFloat diff = CGRectGetWidth([self selectedImageViewFrame]) - CGRectGetHeight([self selectedImageViewFrame]);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + diff/2, CGRectGetMinY([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]));
+		_backgroundSelectedViewCircular = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewCircular.backgroundColor = BackgroundColor;
 		CGFloat radius = _backgroundSelectedViewCircular.frame.size.height/2;
 		_backgroundSelectedViewCircular.layer.cornerRadius = radius;
@@ -291,7 +295,9 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewCircularBordered
 {
 	if (!_backgroundSelectedViewCircularBordered) {
-		_backgroundSelectedViewCircularBordered = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
+		CGFloat diff = CGRectGetWidth([self selectedImageViewFrame]) - CGRectGetHeight([self selectedImageViewFrame]);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + diff/2, CGRectGetMinY([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]));
+		_backgroundSelectedViewCircularBordered = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewCircularBordered.backgroundColor = [UIColor clearColor];
 		CGFloat radius = _backgroundSelectedViewCircularBordered.frame.size.height/2;
 		_backgroundSelectedViewCircularBordered.layer.cornerRadius = radius;
