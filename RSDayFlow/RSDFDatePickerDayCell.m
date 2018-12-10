@@ -102,7 +102,6 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 
 	[self addSubview:self.selectedDayImageView];
 	[self addSubview:self.overlayImageView];
-	[self addSubview:self.markImageView];
 	[self addSubview:self.dividerImageView];
 	[self addSubview:self.todayImageView];
 	[self addSubview:self.backgroundSelectedViewLeftRadius];
@@ -115,6 +114,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	[self addSubview:self.backgroundSelectedViewRightRadiusBordered];
 	[self addSubview:self.backgroundSelectedViewNoRadiusBordered];
 	[self addSubview:self.backgroundSelectedViewCircularBordered];
+	[self addSubview:self.markImageView];
 	[self addSubview:self.dateLabel];
 
 	[self updateSubviews];
@@ -132,7 +132,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	self.dividerImageView.frame = [self dividerImageViewFrame];
 	self.dividerImageView.image = [self dividerImage];
 
-	CGRect smallerHeightFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+	CGRect smallerHeightFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 	self.backgroundSelectedViewLeftRadius.frame = smallerHeightFrame;
 	self.backgroundSelectedViewRightRadius.frame = smallerHeightFrame;
 	self.backgroundSelectedViewNoRadius.frame = smallerHeightFrame;
@@ -168,7 +168,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewLeftRadius
 {
 	if (!_backgroundSelectedViewLeftRadius) {
-		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		_backgroundSelectedViewLeftRadius = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewLeftRadius.backgroundColor = BackgroundColor;
 		CGFloat radius = _backgroundSelectedViewLeftRadius.frame.size.height/2;
@@ -180,7 +180,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewRightRadius
 {
 	if (!_backgroundSelectedViewRightRadius) {
-		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		_backgroundSelectedViewRightRadius = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewRightRadius.backgroundColor = BackgroundColor;
 		CGFloat radius = _backgroundSelectedViewRightRadius.frame.size.height/2;
@@ -192,7 +192,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewNoRadius
 {
 	if (!_backgroundSelectedViewNoRadius) {
-		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		_backgroundSelectedViewNoRadius = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewNoRadius.backgroundColor = BackgroundColor;
 	}
@@ -223,7 +223,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		CGFloat radius = circularView.frame.size.height/2;
 		circularView.layer.cornerRadius = radius;
 
-		CGRect fusedViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect fusedViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		UIView* fusedView = [[UIView alloc] initWithFrame:fusedViewFrame];
 		fusedView.backgroundColor = BackgroundColor;
 
@@ -245,7 +245,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		CGFloat radius = circularView.frame.size.height/2;
 		circularView.layer.cornerRadius = radius;
 
-		CGRect fusedViewFrame = CGRectMake(CGRectGetMaxX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, -CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect fusedViewFrame = CGRectMake(CGRectGetMaxX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, -CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		UIView* fusedView = [[UIView alloc] initWithFrame:fusedViewFrame];
 		fusedView.backgroundColor = BackgroundColor;
 
@@ -259,7 +259,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewLeftRadiusBordered
 {
 	if (!_backgroundSelectedViewLeftRadiusBordered) {
-		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		_backgroundSelectedViewLeftRadiusBordered = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewLeftRadiusBordered.backgroundColor = [UIColor clearColor];
 		CGFloat radius = _backgroundSelectedViewLeftRadiusBordered.frame.size.height/2;
@@ -271,7 +271,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewRightRadiusBordered
 {
 	if (!_backgroundSelectedViewRightRadiusBordered) {
-		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		_backgroundSelectedViewRightRadiusBordered = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewRightRadiusBordered.backgroundColor = [UIColor clearColor];
 		CGFloat radius = _backgroundSelectedViewRightRadiusBordered.frame.size.height/2;
@@ -283,7 +283,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIView *)backgroundSelectedViewNoRadiusBordered
 {
 	if (!_backgroundSelectedViewNoRadiusBordered) {
-		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 5.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 10.0);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 		_backgroundSelectedViewNoRadiusBordered = [[UIView alloc] initWithFrame:frame];
 		_backgroundSelectedViewNoRadiusBordered.backgroundColor = [UIColor clearColor];
 		[self addTopBorderOnView:_backgroundSelectedViewNoRadiusBordered];
@@ -409,7 +409,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 
 - (CGRect)markImageViewFrame
 {
-	return CGRectMake(roundOnBase(CGRectGetWidth(self.frame) / 2 - 4.5f, [UIScreen mainScreen].scale), roundOnBase(45.5f, [UIScreen mainScreen].scale), 9.0f, 9.0f);
+	return CGRectMake(roundOnBase(CGRectGetWidth(self.frame) / 2 - 3.0f, [UIScreen mainScreen].scale), roundOnBase(25, [UIScreen mainScreen].scale), 6.0f, 6.0f);
 }
 
 - (UIImage *)markImage
@@ -467,7 +467,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 
 - (CGRect)selectedImageViewFrame
 {
-	return CGRectMake(roundOnBase(CGRectGetWidth(self.frame) / 2 - 17.5f, [UIScreen mainScreen].scale), roundOnBase(5.5, [UIScreen mainScreen].scale), 35.0f, 35.0f);
+	return CGRectMake(roundOnBase(CGRectGetWidth(self.frame) / 2 - 0.0f, [UIScreen mainScreen].scale), roundOnBase(0, [UIScreen mainScreen].scale), 45.0f, 45.0f);
 }
 
 - (UIImageView *)todayImageView
