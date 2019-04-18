@@ -296,6 +296,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)datePickerView:(RSDFDatePickerView *)view shouldSelectDateInFuture:(NSDate *)date;
 
+/**
+ Asks the data source if the date should be glowing.
+
+ @param view The date picker view object that is asking whether the date should be selected in future.
+
+ @return YES if the date should be glowing or NO if it should not.
+ */
+- (BOOL)datePickerView:(RSDFDatePickerView *)view shouldShowGlowingDay:(NSDate *)date;
+
 @end
 
 NS_ASSUME_NONNULL_END

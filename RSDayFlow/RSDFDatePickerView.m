@@ -716,6 +716,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 	RSDFDatePickerDayCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RSDFDatePickerViewDayCellIdentifier forIndexPath:indexPath];
 	cell.today = NO;
 	cell.selectedInFuture = NO;
+	cell.glowing = NO;
 
 	NSDate *firstDayInMonth = [self dateForFirstDayInSection:indexPath.section];
 	NSUInteger firstDayInMonthWeekday = [self reorderedWeekday:[self.calendar components:NSCalendarUnitWeekday fromDate:firstDayInMonth].weekday];
@@ -754,6 +755,10 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 
 		if ([self.dataSource respondsToSelector:@selector(datePickerView:shouldSelectDateInFuture:)]) {
 			cell.selectedInFuture = [self.dataSource datePickerView:self shouldSelectDateInFuture:cellDate];
+		}
+
+		if ([self.dataSource respondsToSelector:@selector(datePickerView:shouldShowGlowingDay:)]) {
+			cell.glowing = [self.dataSource datePickerView:self shouldShowGlowingDay:cellDate];
 		}
 
 		NSComparisonResult result = [_today compare:cellDate];

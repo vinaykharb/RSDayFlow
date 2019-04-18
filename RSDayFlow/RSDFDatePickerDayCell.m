@@ -23,7 +23,9 @@
 // THE SOFTWARE.
 //
 
-#define BackgroundColor [UIColor colorWithRed:233/255.0f green:63/255.0f blue:67/255.0f alpha:1.0]
+#define BackgroundColor [UIColor colorWithRed: 233/255.0f green: 63/255.0f blue: 67/255.0f alpha: 1.0]
+#define YellowColor [UIColor colorWithRed: 255/255.0f green: 222/255.0f blue: 1/255.0f alpha: 1.0]
+#define YellowShadowColor [UIColor colorWithRed: 247/255.0f green: 187/255.0f blue: 50/255.0f alpha: 1.0]
 #define BorderWidth 3.0f
 
 #import "RSDFDatePickerDayCell.h"
@@ -52,6 +54,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewRightRadiusBordered;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewNoRadiusBordered;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircularBordered;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircularGlowing;
 
 @end
 
@@ -75,6 +78,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @synthesize backgroundSelectedViewRightRadiusBordered = _backgroundSelectedViewRightRadiusBordered;
 @synthesize backgroundSelectedViewNoRadiusBordered = _backgroundSelectedViewNoRadiusBordered;
 @synthesize backgroundSelectedViewCircularBordered = _backgroundSelectedViewCircularBordered;
+@synthesize backgroundSelectedViewCircularGlowing = _backgroundSelectedViewCircularGlowing;
 
 #pragma mark - Lifecycle
 
@@ -114,6 +118,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	[self addSubview:self.backgroundSelectedViewRightRadiusBordered];
 	[self addSubview:self.backgroundSelectedViewNoRadiusBordered];
 	[self addSubview:self.backgroundSelectedViewCircularBordered];
+	[self addSubview:self.backgroundSelectedViewCircularGlowing];
 	[self addSubview:self.markImageView];
 	[self addSubview:self.dateLabel];
 
@@ -146,6 +151,8 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	self.backgroundSelectedViewNoRadiusBordered.frame = smallerHeightFrame;
 	self.backgroundSelectedViewCircularBordered.frame = circularViewFrame;
 
+	CGRect glowingCircularViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + diff/2 + 3.0, CGRectGetMinY([self selectedImageViewFrame]) + 3.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0);
+	self.backgroundSelectedViewCircularGlowing.frame = glowingCircularViewFrame;
 }
 
 - (void)drawRect:(CGRect)rect
@@ -305,6 +312,24 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		_backgroundSelectedViewCircularBordered.layer.borderWidth = BorderWidth/2;
 	}
 	return _backgroundSelectedViewCircularBordered;
+}
+
+- (UIView *)backgroundSelectedViewCircularGlowing
+{
+	if (!_backgroundSelectedViewCircularGlowing) {
+		CGFloat diff = CGRectGetWidth([self selectedImageViewFrame]) - CGRectGetHeight([self selectedImageViewFrame]);
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + diff/2 + 3.0, CGRectGetMinY([self selectedImageViewFrame]) + 3.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0);
+		_backgroundSelectedViewCircularGlowing = [[UIView alloc] initWithFrame: frame];
+		_backgroundSelectedViewCircularGlowing.backgroundColor = YellowColor;
+		_backgroundSelectedViewCircularGlowing.layer.shadowColor = [YellowColor CGColor];
+		_backgroundSelectedViewCircularGlowing.layer.shadowRadius = 6.0;
+		_backgroundSelectedViewCircularGlowing.layer.shadowOffset = CGSizeMake(0, 0);
+		_backgroundSelectedViewCircularGlowing.layer.shadowOpacity = 1.0;
+		_backgroundSelectedViewCircularGlowing.layer.masksToBounds = NO;
+		CGFloat radius = _backgroundSelectedViewCircularGlowing.frame.size.height/2;
+		_backgroundSelectedViewCircularGlowing.layer.cornerRadius = radius;
+	}
+	return _backgroundSelectedViewCircularGlowing;
 }
 
 - (void)roundCornersOnView:(UIView *)view onTopLeft:(BOOL)tl topRight:(BOOL)tr bottomLeft:(BOOL)bl bottomRight:(BOOL)br radius:(float)radius {
@@ -544,6 +569,8 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	self.backgroundSelectedViewNoRadiusBordered.alpha = alphaForBorderedViews;
 	self.backgroundSelectedViewCircularBordered.alpha = alphaForBorderedViews;
 
+	self.backgroundSelectedViewCircularGlowing.hidden = !self.isGlowing;
+
 	switch (self.dayState) {
 		case RSDFDayStateNotThisMonthDay:
 			self.dateLabel.textColor = [self notThisMonthLabelTextColor];
@@ -599,6 +626,9 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 			break;
 		default:
 			break;
+	}
+	if (self.isGlowing) {
+		self.dateLabel.textColor = [UIColor blackColor];
 	}
 	self.todayImageView.image = self.isToday ? [self customTodayImage] : nil;
 
@@ -840,3 +870,4 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 }
 
 @end
+
