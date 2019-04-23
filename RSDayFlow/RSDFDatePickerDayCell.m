@@ -39,6 +39,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 + (NSCache *)imageCache;
 + (id)fetchObjectForKey:(id)key withCreator:(id(^)(void))block;
 
+@property (nonatomic, readonly, strong) UIImageView *selectedDayImageView;
 @property (nonatomic, readonly, strong) UIImageView *markImageView;
 @property (nonatomic, readonly, strong) UIImageView *todayImageView;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewLeftRadius;
@@ -58,6 +59,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @implementation RSDFDatePickerDayCell
 
 @synthesize dateLabel = _dateLabel;
+@synthesize selectedDayImageView = _selectedDayImageView;
 @synthesize markImageView = _markImageView;
 @synthesize todayImageView = _todayImageView;
 @synthesize backgroundSelectedViewLeftRadius = _backgroundSelectedViewLeftRadius;
@@ -96,7 +98,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 {
 	self.backgroundColor = [self selfBackgroundColor];
 
-	[self addSubview:self.todayImageView];
+	[self addSubview:self.selectedDayImageView];
 	[self addSubview:self.backgroundSelectedViewLeftRadius];
 	[self addSubview:self.backgroundSelectedViewRightRadius];
 	[self addSubview:self.backgroundSelectedViewNoRadius];
@@ -108,6 +110,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	[self addSubview:self.backgroundSelectedViewNoRadiusBordered];
 	[self addSubview:self.backgroundSelectedViewCircularBordered];
 	[self addSubview:self.backgroundSelectedViewCircularGlowing];
+	[self addSubview:self.todayImageView];
 	[self addSubview:self.markImageView];
 	[self addSubview:self.dateLabel];
 
@@ -119,8 +122,8 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	[super layoutSubviews];
 
 	self.dateLabel.frame = [self selectedImageViewFrame];
-	self.todayImageView.frame = [self selectedImageViewFrame];
 	self.markImageView.frame = [self markImageViewFrame];
+	self.selectedDayImageView.frame = [self selectedImageViewFrame];
 
 	CGRect smallerHeightFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]), CGRectGetMinY([self selectedImageViewFrame]) + 0.0, CGRectGetWidth([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]) - 0.0);
 	self.backgroundSelectedViewLeftRadius.frame = smallerHeightFrame;
@@ -138,6 +141,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 
 	CGRect glowingCircularViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + diff/2 + 3.0, CGRectGetMinY([self selectedImageViewFrame]) + 3.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0);
 	self.backgroundSelectedViewCircularGlowing.frame = glowingCircularViewFrame;
+	self.todayImageView.frame = glowingCircularViewFrame;
 }
 
 - (void)drawRect:(CGRect)rect
@@ -418,10 +422,23 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	return _markImageView;
 }
 
+- (UIImageView *)selectedDayImageView
+{
+	if (!_selectedDayImageView) {
+		_selectedDayImageView = [[UIImageView alloc] initWithFrame:[self selectedImageViewFrame]];
+		_selectedDayImageView.backgroundColor = [UIColor clearColor];
+		_selectedDayImageView.contentMode = UIViewContentModeScaleAspectFit;
+		_selectedDayImageView.image = [self selectedDayImage];
+		_selectedDayImageView.clipsToBounds = YES;
+	}
+	return _selectedDayImageView;
+}
+
 - (UIImageView *)todayImageView
 {
 	if (!_todayImageView) {
-		_todayImageView = [[UIImageView alloc] initWithFrame:[self selectedImageViewFrame]];
+		CGRect frame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + 3.0, CGRectGetMinY([self selectedImageViewFrame]) + 3.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0, CGRectGetHeight([self selectedImageViewFrame]) - 6.0);
+		_todayImageView = [[UIImageView alloc] initWithFrame: frame];
 		_todayImageView.backgroundColor = [UIColor clearColor];
 		_todayImageView.contentMode = UIViewContentModeScaleAspectFit;
 		_todayImageView.image = [self customTodayImage];
@@ -442,6 +459,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 
 - (void)updateSubviews
 {
+	self.selectedDayImageView.hidden = !self.isTemporarilySelected || self.isNotThisMonth || self.isOutOfRange;
 	self.markImageView.hidden = !self.isMarked || self.isNotThisMonth || self.isOutOfRange;
 	self.todayImageView.hidden = !self.isToday;
 
@@ -515,7 +533,6 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 					self.dateLabel.font = [self todayLabelFont];
 					self.dateLabel.textColor = [self todayLabelTextColor];
 				}
-
 			} else {
 				if (!self.isToday) {
 					self.dateLabel.font = [self selectedDayLabelFont];
@@ -535,11 +552,11 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 		default:
 			break;
 	}
-	if (self.isGlowing) {
+	if (self.isGlowing || self.isToday) {
 		self.dateLabel.textColor = [UIColor blackColor];
 	}
+	self.selectedDayImageView.image = [self customSelectedDayImage];
 	self.todayImageView.image = self.isToday ? [self customTodayImage] : nil;
-
 }
 
 + (NSCache *)imageCache
@@ -691,6 +708,22 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 - (UIFont *)selectedDayLabelFont
 {
 	return [UIFont fontWithName:@"HelveticaNeue-Bold" size:19.0f];
+}
+
+- (UIImage *)customSelectedDayImage
+{
+	return nil;
+}
+
+- (UIImage *)selectedDayImage
+{
+	UIImage *selectedDayImage = [self customSelectedDayImage];
+	if (!selectedDayImage) {
+		UIColor *selectedDayImageColor = [self selectedDayImageColor];
+		NSString *selectedDayImageKey = [NSString stringWithFormat:@"img_selected_day_%@", [selectedDayImageColor description]];
+		selectedDayImage = [self ellipseImageWithKey:selectedDayImageKey frame:self.selectedDayImageView.frame color:selectedDayImageColor];
+	}
+	return selectedDayImage;
 }
 
 - (UIColor *)selectedDayLabelTextColor

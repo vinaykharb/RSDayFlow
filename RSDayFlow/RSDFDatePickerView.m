@@ -68,6 +68,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 @synthesize collectionViewLayout = _collectionViewLayout;
 @synthesize daysInWeek = _daysInWeek;
 @synthesize selectedDates = _selectedDates;
+@synthesize temporarilySelectedDate = _temporarilySelectedDate;
 @synthesize previousPannedIndexPath = _previousPannedIndexPath;
 @synthesize currentPannedIndexPath = _currentPannedIndexPath;
 
@@ -371,6 +372,14 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 		[_selectedDates addObject:date];
 	}
 	[self reloadData];
+}
+
+- (void)temporarilySelectDate:(NSDate *)date
+{
+	_temporarilySelectedDate = date;
+	if (date != NULL) {
+		[self reloadData];
+	}
 }
 
 #pragma mark - Helper Methods
@@ -832,6 +841,19 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 		return NO;
 	}
 
+	if ([self.delegate respondsToSelector:@selector(datePickerView:shouldTemporarilySelectDate:)]) {
+		NSDate *date = [self dateForCellAtIndexPath:indexPath];
+		BOOL shouldTemporarilySelect = [self.delegate datePickerView:self shouldTemporarilySelectDate:date];
+		if (shouldTemporarilySelect) {
+			cell.temporarilySelected = YES;
+			[self temporarilySelectDate:date];
+			return NO;
+		} else {
+			cell.temporarilySelected = NO;
+			[self temporarilySelectDate:NULL];
+		}
+	}
+
 	if ([self.delegate respondsToSelector:@selector(datePickerView:shouldSelectDate:atLocation:)]) {
 		NSDate *date = [self dateForCellAtIndexPath:indexPath];
 		CGPoint location = [collectionView cellForItemAtIndexPath:indexPath].frame.origin;
@@ -972,6 +994,17 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 			rsdfDatePickerDayCell.selected = [self.selectedDates containsObject:cellDate];
 			if (rsdfDatePickerDayCell.selectedInFuture) {
 				rsdfDatePickerDayCell.selected = rsdfDatePickerDayCell.selectedInFuture;
+			}
+
+			//Show temporarily selected date
+			if ([self.dataSource respondsToSelector:@selector(datePickerViewIsBeingEdited:)]) {
+				BOOL isBeingEdited = [self.dataSource datePickerViewIsBeingEdited:self];
+				if (isBeingEdited) {
+					rsdfDatePickerDayCell.temporarilySelected = NO;
+					[self temporarilySelectDate:NULL];
+				} else {
+					rsdfDatePickerDayCell.temporarilySelected = cellDate == _temporarilySelectedDate;
+				}
 			}
 		}
 

@@ -107,6 +107,11 @@ typedef NS_ENUM (NSUInteger, RSDFDaySelectionStyle) {
 @property (nonatomic, getter = isSelectedInFuture) BOOL selectedInFuture;
 
 /**
+ A Bool value that determines if the cell should be shown selected on a future date
+ */
+@property (nonatomic, getter = isTemporarilySelected) BOOL temporarilySelected;
+
+/**
  A Bool value that determines if the cell should be shown glowing
  */
 @property (nonatomic, getter = isGlowing) BOOL glowing;

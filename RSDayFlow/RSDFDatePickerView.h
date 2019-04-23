@@ -90,6 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly, strong) NSMutableArray *selectedDates;
 
+@property (nonatomic, readonly, strong) NSDate *temporarilySelectedDate;
+
 ///----------------------------
 /// @name Scrolling to the Date
 ///----------------------------
@@ -235,6 +237,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)datePickerView:(RSDFDatePickerView *)view shouldSelectDate:(NSDate *)date atLocation:(CGPoint) point;
 
 /**
+ Asks the delegate if the specified date should be selected.
+
+ The date picker view calls this method when the user tries to select a date in the date picker view.
+ It does not call this method when you programmatically set the selection.
+
+ If you do not implement this method, the default return value is YES.
+
+ @param view The date picker view object that is asking whether the date should select.
+
+ @return YES if the date should be selected or NO if it should not.
+ */
+- (BOOL)datePickerView:(RSDFDatePickerView *)view shouldTemporarilySelectDate:(NSDate *)date;
+
+/**
  Tells the delegate that the user did select a date.
 
  The date picker view calls this method when the user successfully selects a date in the date picker view.
@@ -304,6 +320,15 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the date should be glowing or NO if it should not.
  */
 - (BOOL)datePickerView:(RSDFDatePickerView *)view shouldShowGlowingDay:(NSDate *)date;
+
+/**
+ Asks the data source if the date should be glowing.
+
+ @param view The date picker view object that is asking whether the date should be selected in future.
+
+ @return YES if the date should be glowing or NO if it should not.
+ */
+- (BOOL)datePickerViewIsBeingEdited:(RSDFDatePickerView *)view;
 
 @end
 
