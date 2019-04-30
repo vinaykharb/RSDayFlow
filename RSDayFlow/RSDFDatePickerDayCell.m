@@ -98,7 +98,6 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 {
 	self.backgroundColor = [self selfBackgroundColor];
 
-	[self addSubview:self.selectedDayImageView];
 	[self addSubview:self.backgroundSelectedViewLeftRadius];
 	[self addSubview:self.backgroundSelectedViewRightRadius];
 	[self addSubview:self.backgroundSelectedViewNoRadius];
@@ -112,6 +111,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	[self addSubview:self.backgroundSelectedViewCircularGlowing];
 	[self addSubview:self.todayImageView];
 	[self addSubview:self.markImageView];
+	[self addSubview:self.selectedDayImageView];
 	[self addSubview:self.dateLabel];
 
 	[self updateSubviews];
@@ -500,19 +500,19 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	self.backgroundSelectedViewCircularGlowing.hidden = !self.isGlowing;
 
 	switch (self.dayState) {
-			case RSDFDayStateNotThisMonthDay:
+		case RSDFDayStateNotThisMonthDay:
 			self.dateLabel.textColor = [self notThisMonthLabelTextColor];
 			self.dateLabel.font = [self dayLabelFont];
 			break;
-			case RSDFDayStateWeekDayLabel:
+		case RSDFDayStateWeekDayLabel:
 			self.dateLabel.textColor = [self weekDayLabelTextColor];
 			self.dateLabel.font = [self weekDayLabelTextFont];
 			break;
-			case RSDFDayStateOutOfRange:
+		case RSDFDayStateOutOfRange:
 			self.dateLabel.textColor = [self outOfRangeDayLabelTextColor];
 			self.dateLabel.font = [self outOfRangeDayLabelFont];
 			break;
-			case RSDFDayStateMonthDay:
+		case RSDFDayStateMonthDay:
 			if (!self.isSelected) {
 				if (!self.isToday) {
 					self.dateLabel.font = [self dayLabelFont];
