@@ -626,7 +626,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 
 	NSArray *visibleCells = [cv visibleCells];
 	if (![visibleCells count])
-	return;
+		return;
 
 	NSIndexPath *fromIndexPath = [cv indexPathForCell:((UICollectionViewCell *)visibleCells[0]) ];
 	NSInteger fromSection = fromIndexPath.section;
@@ -684,7 +684,7 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 	}];
 
 	for (UIView *view in cv.subviews)
-	[view.layer removeAllAnimations];
+		[view.layer removeAllAnimations];
 
 #else
 
@@ -752,13 +752,13 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 
 		NSString *monthString = @"";
 		switch (monthHeader.displayStyle) {
-				case RSDFMonthsDisplayStyleShortUppercase:
+			case RSDFMonthsDisplayStyleShortUppercase:
 				monthString = [([dateFormatter shortStandaloneMonthSymbols][date.month - 1]) uppercaseString];
 				break;
-				case RSDFMonthsDisplayStyleFull:
+			case RSDFMonthsDisplayStyleFull:
 				monthString = [dateFormatter monthSymbols][date.month - 1];
 				break;
-				case RSDFMonthsDisplayStyleFullUppercase:
+			case RSDFMonthsDisplayStyleFullUppercase:
 				monthString = [([dateFormatter monthSymbols][date.month - 1]) uppercaseString];
 				break;
 		}
@@ -930,21 +930,21 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 
 			NSComparisonResult result = [_today compare:cellDate];
 			switch (result) {
-					case NSOrderedSame: {
-						rsdfDatePickerDayCell.today = YES;
-						rsdfDatePickerDayCell.pastDate = NO;
-						break;
-					}
-					case NSOrderedDescending: {
-						rsdfDatePickerDayCell.today = NO;
-						rsdfDatePickerDayCell.pastDate = YES;
-						break;
-					}
-					case NSOrderedAscending: {
-						rsdfDatePickerDayCell.today = NO;
-						rsdfDatePickerDayCell.pastDate = NO;
-						break;
-					}
+				case NSOrderedSame: {
+					rsdfDatePickerDayCell.today = YES;
+					rsdfDatePickerDayCell.pastDate = NO;
+					break;
+				}
+				case NSOrderedDescending: {
+					rsdfDatePickerDayCell.today = NO;
+					rsdfDatePickerDayCell.pastDate = YES;
+					break;
+				}
+				case NSOrderedAscending: {
+					rsdfDatePickerDayCell.today = NO;
+					rsdfDatePickerDayCell.pastDate = NO;
+					break;
+				}
 			}
 
 			if ((self.startDate && [cellDate compare:self.startDate] == NSOrderedAscending) ||
@@ -963,27 +963,32 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 			BOOL isLeftSelected = [self.selectedDates containsObject:dateMinusOneDay];
 			BOOL isRightSelected = [self.selectedDates containsObject:datePlusOneDay];
 
+			BOOL isLeftSelectedInFuture = NO;
+			BOOL isRightSelectedInFuture = NO;
 			if (rsdfDatePickerDayCell.isSelectedInFuture) {
-				isLeftSelected = [self.dataSource datePickerView:self shouldSelectDateInFuture:dateMinusOneDay];
-				isRightSelected = [self.dataSource datePickerView:self shouldSelectDateInFuture:datePlusOneDay];
+				isLeftSelectedInFuture = [self.dataSource datePickerView:self shouldSelectDateInFuture:dateMinusOneDay];
+				isRightSelectedInFuture = [self.dataSource datePickerView:self shouldSelectDateInFuture:datePlusOneDay];
 			}
 
-			if (isLeftSelected && isRightSelected) {
+			BOOL hasLeft = isLeftSelected || isLeftSelectedInFuture;
+			BOOL hasRight = isRightSelected || isRightSelectedInFuture;
+
+			if (hasLeft && hasRight) {
 				rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleNoRadius;
-			} else if (isLeftSelected) {
+			} else if (hasLeft) {
 				rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleRightRadius;
-			} else if (isRightSelected) {
+			} else if (hasRight) {
 				rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleLeftRadius;
 			} else {
 				rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleCircular;
 			}
 
 			if (self.currentPannedIndexPath == indexPath) {
-				if (isLeftSelected && isRightSelected) {
+				if (hasLeft && hasRight) {
 					rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleCircularFused;
-				} else if (isLeftSelected) {
+				} else if (hasLeft) {
 					rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleCircularFusedLeft;
-				} else if (isRightSelected) {
+				} else if (hasRight) {
 					rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleCircularFusedRight;
 				} else {
 					rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleCircular;
@@ -991,9 +996,21 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 			}
 
 			//Show Selected/Deselected cells
-			rsdfDatePickerDayCell.selected = [self.selectedDates containsObject:cellDate];
+			BOOL isSelfSelected = [self.selectedDates containsObject:cellDate];
+			rsdfDatePickerDayCell.selected = isSelfSelected;
 			if (rsdfDatePickerDayCell.selectedInFuture) {
 				rsdfDatePickerDayCell.selected = rsdfDatePickerDayCell.selectedInFuture;
+			}
+
+			// for special case of connection between a solid and a bordered cell
+			if (isSelfSelected) {
+				BOOL isRightSelectedInFutureForThis = [self.dataSource datePickerView:self shouldSelectDateInFuture:datePlusOneDay];
+				if (isRightSelectedInFutureForThis) {
+					rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleCircularRadiusWithFusedBorder;
+					if (!isLeftSelected) {
+						rsdfDatePickerDayCell.selectionStyle = RSDFDaySelectionStyleDoubleCircular;
+					}
+				}
 			}
 
 			//Show temporarily selected date

@@ -46,6 +46,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewRightRadius;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewNoRadius;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircular;
+@property (nonatomic, readonly, strong) UIView *backgroundSelectedViewDoubleCircular;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircularFusedLeft;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewCircularFusedRight;
 @property (nonatomic, readonly, strong) UIView *backgroundSelectedViewLeftRadiusBordered;
@@ -66,6 +67,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 @synthesize backgroundSelectedViewRightRadius = _backgroundSelectedViewRightRadius;
 @synthesize backgroundSelectedViewNoRadius = _backgroundSelectedViewNoRadius;
 @synthesize backgroundSelectedViewCircular = _backgroundSelectedViewCircular;
+@synthesize backgroundSelectedViewDoubleCircular = _backgroundSelectedViewDoubleCircular;
 @synthesize backgroundSelectedViewCircularFusedLeft = _backgroundSelectedViewCircularFusedLeft;
 @synthesize backgroundSelectedViewCircularFusedRight = _backgroundSelectedViewCircularFusedRight;
 @synthesize backgroundSelectedViewLeftRadiusBordered = _backgroundSelectedViewLeftRadiusBordered;
@@ -102,6 +104,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	[self addSubview:self.backgroundSelectedViewRightRadius];
 	[self addSubview:self.backgroundSelectedViewNoRadius];
 	[self addSubview:self.backgroundSelectedViewCircular];
+	[self addSubview: self.backgroundSelectedViewDoubleCircular];
 	[self addSubview:self.backgroundSelectedViewCircularFusedLeft];
 	[self addSubview:self.backgroundSelectedViewCircularFusedRight];
 	[self addSubview:self.backgroundSelectedViewLeftRadiusBordered];
@@ -133,6 +136,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	CGRect circularViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + diff/2, CGRectGetMinY([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]), CGRectGetHeight([self selectedImageViewFrame]));
 	self.backgroundSelectedViewCircular.frame = circularViewFrame;
 	self.backgroundSelectedViewCircularFusedLeft.frame = [self selectedImageViewFrame];
+	self.backgroundSelectedViewDoubleCircular.frame = [self selectedImageViewFrame];
 	self.backgroundSelectedViewCircularFusedRight.frame = [self selectedImageViewFrame];
 	self.backgroundSelectedViewLeftRadiusBordered.frame = smallerHeightFrame;
 	self.backgroundSelectedViewRightRadiusBordered.frame = smallerHeightFrame;
@@ -207,6 +211,30 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	}
 	return _backgroundSelectedViewCircular;
 }
+
+- (UIView *)backgroundSelectedViewDoubleCircular
+{
+	if (!_backgroundSelectedViewDoubleCircular) {
+		_backgroundSelectedViewDoubleCircular = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
+		_backgroundSelectedViewDoubleCircular.backgroundColor = [UIColor clearColor];
+
+		UIView* circularView = [[UIView alloc] initWithFrame:[self selectedImageViewFrame]];
+		circularView.backgroundColor = BackgroundColor;
+		CGFloat radius = circularView.frame.size.height/2;
+		circularView.layer.cornerRadius = radius;
+
+		CGRect borderedViewFrame = CGRectMake(CGRectGetMinX([self selectedImageViewFrame]) + CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetMinY([self selectedImageViewFrame]), CGRectGetWidth([self selectedImageViewFrame])/2, CGRectGetHeight([self selectedImageViewFrame]));
+		UIView* borderedView = [[UIView alloc] initWithFrame:borderedViewFrame];
+		borderedView.backgroundColor = [UIColor clearColor];
+		[self addTopBorderOnView:borderedView];
+		[self addBottomBorderOnView:borderedView];
+
+		[_backgroundSelectedViewDoubleCircular addSubview:borderedView];
+		[_backgroundSelectedViewDoubleCircular addSubview:circularView];
+	}
+	return _backgroundSelectedViewDoubleCircular;
+}
+
 
 - (UIView *)backgroundSelectedViewCircularFusedLeft
 {
@@ -470,7 +498,7 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	BOOL hideBackgroundSelectedView = !self.isSelected || self.isNotThisMonth || self.isOutOfRange || !self.isBackgroundSelectionViewVisible;
 
 	self.backgroundSelectedViewLeftRadius.hidden = self.selectionStyle != RSDFDaySelectionStyleLeftRadius || hideBackgroundSelectedView;
-	self.backgroundSelectedViewRightRadius.hidden = self.selectionStyle != RSDFDaySelectionStyleRightRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewRightRadius.hidden = !(self.selectionStyle == RSDFDaySelectionStyleRightRadius || self.selectionStyle == RSDFDaySelectionStyleCircularRadiusWithFusedBorder) || hideBackgroundSelectedView;
 	self.backgroundSelectedViewNoRadius.hidden = self.selectionStyle != RSDFDaySelectionStyleNoRadius || hideBackgroundSelectedView;
 	self.backgroundSelectedViewCircular.hidden = self.selectionStyle != RSDFDaySelectionStyleCircular || hideBackgroundSelectedView;
 	self.backgroundSelectedViewCircularFusedLeft.hidden = self.selectionStyle != RSDFDaySelectionStyleCircularFusedLeft || hideBackgroundSelectedView;
@@ -481,15 +509,20 @@ CGFloat roundOnBase(CGFloat x, CGFloat base) {
 	}
 	self.backgroundSelectedViewLeftRadiusBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleLeftRadius || hideBackgroundSelectedView;
 	self.backgroundSelectedViewRightRadiusBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleRightRadius || hideBackgroundSelectedView;
-	self.backgroundSelectedViewNoRadiusBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleNoRadius || hideBackgroundSelectedView;
+	self.backgroundSelectedViewNoRadiusBordered.hidden = !(self.selectionStyle == RSDFDaySelectionStyleNoRadius ||
+														   self.selectionStyle == RSDFDaySelectionStyleCircularRadiusWithFusedBorder) || hideBackgroundSelectedView;
 	self.backgroundSelectedViewCircularBordered.hidden = self.selectionStyle != RSDFDaySelectionStyleCircular || hideBackgroundSelectedView;
+	self.backgroundSelectedViewDoubleCircular.hidden = self.selectionStyle != RSDFDaySelectionStyleDoubleCircular || hideBackgroundSelectedView;
 
-	CGFloat alphaForBorderedViews = !self.isSelectedInFuture ? 0.0 : 0.53;
-	CGFloat alphaForFilledViews = !self.isSelectedInFuture ? 1.0 : 0.0;
+	CGFloat alphaForBorderedViews = (self.isSelectedInFuture ||
+									 self.selectionStyle == RSDFDaySelectionStyleCircularRadiusWithFusedBorder ||
+									 self.selectionStyle == RSDFDaySelectionStyleDoubleCircular) ? 1.0 : 0.0;
+	CGFloat alphaForFilledViews = self.isSelectedInFuture ? 0.0 : 1.0;
 	self.backgroundSelectedViewLeftRadius.alpha = alphaForFilledViews;
 	self.backgroundSelectedViewRightRadius.alpha = alphaForFilledViews;
 	self.backgroundSelectedViewNoRadius.alpha = alphaForFilledViews;
 	self.backgroundSelectedViewCircular.alpha = alphaForFilledViews;
+	self.backgroundSelectedViewDoubleCircular.alpha = alphaForFilledViews;
 	self.backgroundSelectedViewCircularFusedLeft.alpha = alphaForFilledViews;
 	self.backgroundSelectedViewCircularFusedRight.alpha = alphaForFilledViews;
 	self.backgroundSelectedViewLeftRadiusBordered.alpha = alphaForBorderedViews;
